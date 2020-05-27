@@ -41,7 +41,7 @@ namespace vMenuClient
         /// </summary>
         private void CreateMenu()
         {
-            menu = new Menu(Game.Player.Name, "Banned Players Management");
+            menu = new Menu(Game.Player.Name, "Liste des bans");
 
             menu.InstructionalButtons.Add(Control.Jump, "Filter Options");
             menu.ButtonPressHandlers.Add(new Menu.ButtonPressHandler(Control.Jump, Menu.ControlPressCheckType.JUST_RELEASED, new Action<Menu, Control>(async (a, b) =>
@@ -69,11 +69,11 @@ namespace vMenuClient
                 Log($"Button pressed: {a} {b}");
             }), true));
 
-            bannedPlayer.AddMenuItem(new MenuItem("Player Name"));
-            bannedPlayer.AddMenuItem(new MenuItem("Banned By"));
-            bannedPlayer.AddMenuItem(new MenuItem("Banned Until"));
-            bannedPlayer.AddMenuItem(new MenuItem("Player Identifiers"));
-            bannedPlayer.AddMenuItem(new MenuItem("Banned For"));
+            bannedPlayer.AddMenuItem(new MenuItem("Nom du joueur"));
+            bannedPlayer.AddMenuItem(new MenuItem("Bannis par"));
+            bannedPlayer.AddMenuItem(new MenuItem("Bannis jusqu\'à"));
+            bannedPlayer.AddMenuItem(new MenuItem("Identifiers"));
+            bannedPlayer.AddMenuItem(new MenuItem("Raison"));
             bannedPlayer.AddMenuItem(new MenuItem("~r~Unban", "~r~Warning, unbanning the player can NOT be undone. You will NOT be able to ban them again until they re-join the server. Are you absolutely sure you want to unban this player? ~s~Tip: Tempbanned players will automatically get unbanned if they log on to the server after their ban date has expired."));
 
             // should be enough for now to cover all possible identifiers.

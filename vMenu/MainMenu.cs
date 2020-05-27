@@ -45,7 +45,6 @@ namespace vMenuClient
         public static WeaponLoadouts WeaponLoadoutsMenu { get; private set; }
         public static Recording RecordingMenu { get; private set; }
         public static MiscSettings MiscSettingsMenu { get; private set; }
-        public static VoiceChat VoiceChatSettingsMenu { get; private set; }
         public static About AboutMenu { get; private set; }
         public static bool NoClipEnabled { get { return NoClip.IsNoclipActive(); } set { NoClip.SetNoclipActive(value); } }
         public static PlayerList PlayersList;
@@ -192,11 +191,7 @@ namespace vMenuClient
                                 int type = 0; // 0 = string, 1 = float, 2 = int.
                                 if (kvp.StartsWith("settings_"))
                                 {
-                                    if (kvp == "settings_voiceChatProximity") // float
-                                    {
-                                        type = 1;
-                                    }
-                                    else if (kvp == "settings_clothingAnimationType") // int
+                                    if (kvp == "settings_clothingAnimationType") // int
                                     {
                                         type = 2;
                                     }
@@ -385,7 +380,7 @@ namespace vMenuClient
                     }
 
                     // Create the main menu.
-                    Menu = new Menu(Game.Player.Name, "Main Menu");
+                    Menu = new Menu("Administration", "Main Menu");
                     PlayerSubmenu = new Menu(Game.Player.Name, "Player Related Options");
                     VehicleSubmenu = new Menu(Game.Player.Name, "Vehicle Related Options");
                     WorldSubmenu = new Menu(Game.Player.Name, "World Options");
@@ -532,7 +527,7 @@ namespace vMenuClient
             {
                 OnlinePlayersMenu = new OnlinePlayers();
                 Menu menu = OnlinePlayersMenu.GetMenu();
-                MenuItem button = new MenuItem("Online Players", "All currently connected players.")
+                MenuItem button = new MenuItem("Joueurs en ligne", "")
                 {
                     Label = "→→→"
                 };
@@ -550,7 +545,7 @@ namespace vMenuClient
             {
                 BannedPlayersMenu = new BannedPlayers();
                 Menu menu = BannedPlayersMenu.GetMenu();
-                MenuItem button = new MenuItem("Banned Players", "View and manage all banned players in this menu.")
+                MenuItem button = new MenuItem("Joueurs bannis", "")
                 {
                     Label = "→→→"
                 };
@@ -565,7 +560,7 @@ namespace vMenuClient
                 };
             }
 
-            MenuItem playerSubmenuBtn = new MenuItem("Player Related Options", "Open this submenu for player related subcategories.") { Label = "→→→" };
+            MenuItem playerSubmenuBtn = new MenuItem("Options du joueur", "") { Label = "→→→" };
             Menu.AddMenuItem(playerSubmenuBtn);
 
             // Add the player options menu.
@@ -573,21 +568,21 @@ namespace vMenuClient
             {
                 PlayerOptionsMenu = new PlayerOptions();
                 Menu menu = PlayerOptionsMenu.GetMenu();
-                MenuItem button = new MenuItem("Player Options", "Common player options can be accessed here.")
+                MenuItem button = new MenuItem("Outils", "")
                 {
                     Label = "→→→"
                 };
                 AddMenu(PlayerSubmenu, menu, button);
             }
 
-            MenuItem vehicleSubmenuBtn = new MenuItem("Vehicle Related Options", "Open this submenu for vehicle related subcategories.") { Label = "→→→" };
+            MenuItem vehicleSubmenuBtn = new MenuItem("Options du véhicule", "") { Label = "→→→" };
             Menu.AddMenuItem(vehicleSubmenuBtn);
             // Add the vehicle options Menu.
             if (IsAllowed(Permission.VOMenu))
             {
                 VehicleOptionsMenu = new VehicleOptions();
                 Menu menu = VehicleOptionsMenu.GetMenu();
-                MenuItem button = new MenuItem("Vehicle Options", "Here you can change common vehicle options, as well as tune & style your vehicle.")
+                MenuItem button = new MenuItem("Outils", "")
                 {
                     Label = "→→→"
                 };
@@ -599,7 +594,7 @@ namespace vMenuClient
             {
                 VehicleSpawnerMenu = new VehicleSpawner();
                 Menu menu = VehicleSpawnerMenu.GetMenu();
-                MenuItem button = new MenuItem("Vehicle Spawner", "Spawn a vehicle by name or choose one from a specific category.")
+                MenuItem button = new MenuItem("Spawner", "")
                 {
                     Label = "→→→"
                 };
@@ -607,7 +602,7 @@ namespace vMenuClient
             }
 
             // Add Saved Vehicles menu.
-            if (IsAllowed(Permission.SVMenu))
+            /*if (IsAllowed(Permission.SVMenu))
             {
                 SavedVehiclesMenu = new SavedVehicles();
                 Menu menu = SavedVehiclesMenu.GetMenu();
@@ -635,7 +630,7 @@ namespace vMenuClient
                     Label = "→→→"
                 };
                 AddMenu(VehicleSubmenu, menu, button);
-            }
+            } */
 
             // Add the player appearance menu.
             if (IsAllowed(Permission.PAMenu))
@@ -657,7 +652,7 @@ namespace vMenuClient
                 AddMenu(PlayerSubmenu, menu2, button2);
             }
 
-            MenuItem worldSubmenuBtn = new MenuItem("World Related Options", "Open this submenu for world related subcategories.") { Label = "→→→" };
+            MenuItem worldSubmenuBtn = new MenuItem("Options Météo-Heure", "") { Label = "→→→" };
             Menu.AddMenuItem(worldSubmenuBtn);
 
             // Add the time options menu.
@@ -666,7 +661,7 @@ namespace vMenuClient
             {
                 TimeOptionsMenu = new TimeOptions();
                 Menu menu = TimeOptionsMenu.GetMenu();
-                MenuItem button = new MenuItem("Time Options", "Change the time, and edit other time related options.")
+                MenuItem button = new MenuItem("Heure du jeu", "")
                 {
                     Label = "→→→"
                 };
@@ -679,7 +674,7 @@ namespace vMenuClient
             {
                 WeatherOptionsMenu = new WeatherOptions();
                 Menu menu = WeatherOptionsMenu.GetMenu();
-                MenuItem button = new MenuItem("Weather Options", "Change all weather related options here.")
+                MenuItem button = new MenuItem("Météo", "")
                 {
                     Label = "→→→"
                 };
@@ -691,7 +686,7 @@ namespace vMenuClient
             {
                 WeaponOptionsMenu = new WeaponOptions();
                 Menu menu = WeaponOptionsMenu.GetMenu();
-                MenuItem button = new MenuItem("Weapon Options", "Add/remove weapons, modify weapons and set ammo options.")
+                MenuItem button = new MenuItem("Options des Armes", "")
                 {
                     Label = "→→→"
                 };
@@ -699,7 +694,7 @@ namespace vMenuClient
             }
 
             // Add Weapon Loadouts menu.
-            if (IsAllowed(Permission.WLMenu))
+           /* if (IsAllowed(Permission.WLMenu))
             {
                 WeaponLoadoutsMenu = new WeaponLoadouts();
                 Menu menu = WeaponLoadoutsMenu.GetMenu();
@@ -708,7 +703,7 @@ namespace vMenuClient
                     Label = "→→→"
                 };
                 AddMenu(PlayerSubmenu, menu, button);
-            }
+            }*/
 
             if (IsAllowed(Permission.NoClip))
             {
@@ -721,18 +716,6 @@ namespace vMenuClient
                         NoClipEnabled = !NoClipEnabled;
                     }
                 };
-            }
-
-            // Add Voice Chat Menu.
-            if (IsAllowed(Permission.VCMenu))
-            {
-                VoiceChatSettingsMenu = new VoiceChat();
-                Menu menu = VoiceChatSettingsMenu.GetMenu();
-                MenuItem button = new MenuItem("Voice Chat Settings", "Change Voice Chat options here.")
-                {
-                    Label = "→→→"
-                };
-                AddMenu(Menu, menu, button);
             }
 
             {
@@ -749,7 +732,7 @@ namespace vMenuClient
             {
                 MiscSettingsMenu = new MiscSettings();
                 Menu menu = MiscSettingsMenu.GetMenu();
-                MenuItem button = new MenuItem("Misc Settings", "Miscellaneous vMenu options/settings can be configured here. You can also save your settings in this menu.")
+                MenuItem button = new MenuItem("Divers", "")
                 {
                     Label = "→→→"
                 };
@@ -757,6 +740,7 @@ namespace vMenuClient
             }
 
             // Add About Menu.
+            /*
             AboutMenu = new About();
             Menu sub = AboutMenu.GetMenu();
             MenuItem btn = new MenuItem("About vMenu", "Information about vMenu.")
@@ -764,6 +748,7 @@ namespace vMenuClient
                 Label = "→→→"
             };
             AddMenu(Menu, sub, btn);
+            */
 
             // Refresh everything.
             MenuController.Menus.ForEach((m) => m.RefreshIndex());

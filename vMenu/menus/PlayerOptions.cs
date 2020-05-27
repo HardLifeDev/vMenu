@@ -39,26 +39,26 @@ namespace vMenuClient
         {
             #region create menu and menu items
             // Create the menu.
-            menu = new Menu(Game.Player.Name, "Player Options");
+            menu = new Menu(Game.Player.Name, "Oprions");
 
             // Create all checkboxes.
             MenuCheckboxItem playerGodModeCheckbox = new MenuCheckboxItem("Godmode", "Makes you invincible.", PlayerGodMode);
             MenuCheckboxItem invisibleCheckbox = new MenuCheckboxItem("Invisible", "Makes you invisible to yourself and others.", PlayerInvisible);
             MenuCheckboxItem unlimitedStaminaCheckbox = new MenuCheckboxItem("Unlimited Stamina", "Allows you to run forever without slowing down or taking damage.", PlayerStamina);
-            MenuCheckboxItem fastRunCheckbox = new MenuCheckboxItem("Fast Run", "Get ~g~Snail~s~ powers and run very fast!", PlayerFastRun);
+            //MenuCheckboxItem fastRunCheckbox = new MenuCheckboxItem("Fast Run", "Get ~g~Snail~s~ powers and run very fast!", PlayerFastRun);
             SetRunSprintMultiplierForPlayer(Game.Player.Handle, (PlayerFastRun && IsAllowed(Permission.POFastRun) ? 1.49f : 1f));
             MenuCheckboxItem fastSwimCheckbox = new MenuCheckboxItem("Fast Swim", "Get ~g~Snail 2.0~s~ powers and swim super fast!", PlayerFastSwim);
             SetSwimMultiplierForPlayer(Game.Player.Handle, (PlayerFastSwim && IsAllowed(Permission.POFastSwim) ? 1.49f : 1f));
-            MenuCheckboxItem superJumpCheckbox = new MenuCheckboxItem("Super Jump", "Get ~g~Snail 3.0~s~ powers and jump like a champ!", PlayerSuperJump);
+            //MenuCheckboxItem superJumpCheckbox = new MenuCheckboxItem("Super Jump", "Get ~g~Snail 3.0~s~ powers and jump like a champ!", PlayerSuperJump);
             MenuCheckboxItem noRagdollCheckbox = new MenuCheckboxItem("No Ragdoll", "Disables player ragdoll, makes you not fall off your bike anymore.", PlayerNoRagdoll);
-            MenuCheckboxItem neverWantedCheckbox = new MenuCheckboxItem("Never Wanted", "Disables all wanted levels.", PlayerNeverWanted);
-            MenuCheckboxItem everyoneIgnoresPlayerCheckbox = new MenuCheckboxItem("Everyone Ignore Player", "Everyone will leave you alone.", PlayerIsIgnored);
-            MenuCheckboxItem playerStayInVehicleCheckbox = new MenuCheckboxItem("Stay In Vehicle", "When this is enabled, NPCs will not be able to drag you out of your vehicle if they get angry at you.", PlayerStayInVehicle);
+            //MenuCheckboxItem neverWantedCheckbox = new MenuCheckboxItem("Never Wanted", "Disables all wanted levels.", PlayerNeverWanted);
+            //MenuCheckboxItem everyoneIgnoresPlayerCheckbox = new MenuCheckboxItem("Everyone Ignore Player", "Everyone will leave you alone.", PlayerIsIgnored);
+            //MenuCheckboxItem playerStayInVehicleCheckbox = new MenuCheckboxItem("Stay In Vehicle", "When this is enabled, NPCs will not be able to drag you out of your vehicle if they get angry at you.", PlayerStayInVehicle);
             MenuCheckboxItem playerFrozenCheckbox = new MenuCheckboxItem("Freeze Player", "Freezes your current location.", PlayerFrozen);
 
             // Wanted level options
-            List<string> wantedLevelList = new List<string> { "No Wanted Level", "1", "2", "3", "4", "5" };
-            MenuListItem setWantedLevel = new MenuListItem("Set Wanted Level", wantedLevelList, GetPlayerWantedLevel(Game.Player.Handle), "Set your wanted level by selecting a value, and pressing enter.");
+            //List<string> wantedLevelList = new List<string> { "No Wanted Level", "1", "2", "3", "4", "5" };
+           // MenuListItem setWantedLevel = new MenuListItem("Set Wanted Level", wantedLevelList, GetPlayerWantedLevel(Game.Player.Handle), "Set your wanted level by selecting a value, and pressing enter.");
             MenuListItem setArmorItem = new MenuListItem("Set Armor Type", new List<string> { "No Armor", GetLabelText("WT_BA_0"), GetLabelText("WT_BA_1"), GetLabelText("WT_BA_2"), GetLabelText("WT_BA_3"), GetLabelText("WT_BA_4"), }, 0, "Set the armor level/type for your player.");
 
             MenuItem healPlayerBtn = new MenuItem("Heal Player", "Give the player max health.");
@@ -98,38 +98,38 @@ namespace vMenuClient
             {
                 menu.AddMenuItem(unlimitedStaminaCheckbox);
             }
-            if (IsAllowed(Permission.POFastRun))
-            {
-                menu.AddMenuItem(fastRunCheckbox);
-            }
+            //if (IsAllowed(Permission.POFastRun))
+            //{
+            //    menu.AddMenuItem(fastRunCheckbox);
+            //}
             if (IsAllowed(Permission.POFastSwim))
             {
                 menu.AddMenuItem(fastSwimCheckbox);
             }
-            if (IsAllowed(Permission.POSuperjump))
-            {
-                menu.AddMenuItem(superJumpCheckbox);
-            }
+            //if (IsAllowed(Permission.POSuperjump))
+            //{
+            //    menu.AddMenuItem(superJumpCheckbox);
+            //}
             if (IsAllowed(Permission.PONoRagdoll))
             {
                 menu.AddMenuItem(noRagdollCheckbox);
             }
-            if (IsAllowed(Permission.PONeverWanted))
-            {
-                menu.AddMenuItem(neverWantedCheckbox);
-            }
-            if (IsAllowed(Permission.POSetWanted))
-            {
-                menu.AddMenuItem(setWantedLevel);
-            }
-            if (IsAllowed(Permission.POIgnored))
-            {
-                menu.AddMenuItem(everyoneIgnoresPlayerCheckbox);
-            }
-            if (IsAllowed(Permission.POStayInVehicle))
-            {
-                menu.AddMenuItem(playerStayInVehicleCheckbox);
-            }
+            //if (IsAllowed(Permission.PONeverWanted))
+            //{
+            //    menu.AddMenuItem(neverWantedCheckbox);
+            //}
+            //if (IsAllowed(Permission.POSetWanted))
+            //{
+            //    menu.AddMenuItem(setWantedLevel);
+            //}
+            //if (IsAllowed(Permission.POIgnored))
+            //{
+            //    menu.AddMenuItem(everyoneIgnoresPlayerCheckbox);
+            //}
+            //if (IsAllowed(Permission.POStayInVehicle))
+            //{
+            //    menu.AddMenuItem(playerStayInVehicleCheckbox);
+            //}
             if (IsAllowed(Permission.POMaxHealth))
             {
                 menu.AddMenuItem(healPlayerBtn);
@@ -345,11 +345,11 @@ namespace vMenuClient
                     StatSetInt((uint)GetHashKey("MP0_STAMINA"), _checked ? 100 : 0, true);
                 }
                 // Fast run toggled.
-                else if (item == fastRunCheckbox)
-                {
-                    PlayerFastRun = _checked;
-                    SetRunSprintMultiplierForPlayer(Game.Player.Handle, (_checked ? 1.49f : 1f));
-                }
+                //else if (item == fastRunCheckbox)
+                //{
+                //    PlayerFastRun = _checked;
+                //    SetRunSprintMultiplierForPlayer(Game.Player.Handle, (_checked ? 1.49f : 1f));
+                //}
                 // Fast swim toggled.
                 else if (item == fastSwimCheckbox)
                 {
@@ -357,42 +357,42 @@ namespace vMenuClient
                     SetSwimMultiplierForPlayer(Game.Player.Handle, (_checked ? 1.49f : 1f));
                 }
                 // Super jump toggled.
-                else if (item == superJumpCheckbox)
-                {
-                    PlayerSuperJump = _checked;
-                }
+                //else if (item == superJumpCheckbox)
+                //{
+                //    PlayerSuperJump = _checked;
+                //}
                 // No ragdoll toggled.
                 else if (item == noRagdollCheckbox)
                 {
                     PlayerNoRagdoll = _checked;
                 }
                 // Never wanted toggled.
-                else if (item == neverWantedCheckbox)
-                {
-                    PlayerNeverWanted = _checked;
-                    if (!_checked)
-                    {
-                        SetMaxWantedLevel(5);
-                    }
-                    else
-                    {
-                        SetMaxWantedLevel(0);
-                    }
-                }
-                // Everyone ignores player toggled.
-                else if (item == everyoneIgnoresPlayerCheckbox)
-                {
-                    PlayerIsIgnored = _checked;
+                //else if (item == neverWantedCheckbox)
+                //{
+                //    PlayerNeverWanted = _checked;
+                //    if (!_checked)
+                //    {
+                //        SetMaxWantedLevel(5);
+                //    }
+                //    else
+                //    {
+                //        SetMaxWantedLevel(0);
+                //    }
+                //}
+                //// Everyone ignores player toggled.
+                //else if (item == everyoneIgnoresPlayerCheckbox)
+                //{
+                //    PlayerIsIgnored = _checked;
 
-                    // Manage player is ignored by everyone.
-                    SetEveryoneIgnorePlayer(Game.Player.Handle, PlayerIsIgnored);
-                    SetPoliceIgnorePlayer(Game.Player.Handle, PlayerIsIgnored);
-                    SetPlayerCanBeHassledByGangs(Game.Player.Handle, !PlayerIsIgnored);
-                }
-                else if (item == playerStayInVehicleCheckbox)
-                {
-                    PlayerStayInVehicle = _checked;
-                }
+                //    // Manage player is ignored by everyone.
+                //    SetEveryoneIgnorePlayer(Game.Player.Handle, PlayerIsIgnored);
+                //    SetPoliceIgnorePlayer(Game.Player.Handle, PlayerIsIgnored);
+                //    SetPlayerCanBeHassledByGangs(Game.Player.Handle, !PlayerIsIgnored);
+                //}
+                //else if (item == playerStayInVehicleCheckbox)
+                //{
+                //    PlayerStayInVehicle = _checked;
+                //}
                 // Freeze player toggled.
                 else if (item == playerFrozenCheckbox)
                 {
@@ -413,13 +413,13 @@ namespace vMenuClient
             menu.OnListItemSelect += (sender, listItem, listIndex, itemIndex) =>
             {
                 // Set wanted Level
-                if (listItem == setWantedLevel)
-                {
-                    SetPlayerWantedLevel(Game.Player.Handle, listIndex, false);
-                    SetPlayerWantedLevelNow(Game.Player.Handle, false);
-                }
+                //if (listItem == setWantedLevel)
+                //{
+                //    SetPlayerWantedLevel(Game.Player.Handle, listIndex, false);
+                //    SetPlayerWantedLevelNow(Game.Player.Handle, false);
+                //}
                 // Player Scenarios 
-                else if (listItem == playerScenarios)
+                if (listItem == playerScenarios)
                 {
                     PlayScenario(PedScenarios.ScenarioNames[PedScenarios.Scenarios[listIndex]]);
                 }

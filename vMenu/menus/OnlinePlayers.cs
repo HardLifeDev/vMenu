@@ -20,7 +20,7 @@ namespace vMenuClient
         // Menu variable, will be defined in CreateMenu()
         private Menu menu;
 
-        Menu playerMenu = new Menu("Online Players", "Player:");
+        Menu playerMenu = new Menu("Joueurs en ligne", "Joueurs:");
         Player currentPlayer = new Player(Game.Player.Handle);
 
 
@@ -30,22 +30,23 @@ namespace vMenuClient
         private void CreateMenu()
         {
             // Create the menu.
-            menu = new Menu(Game.Player.Name, "Online Players") { };
-            menu.CounterPreText = "Players: ";
+            menu = new Menu("Administration", "Joueurs en ligne") { };
+            menu.CounterPreText = "Joueurs : ";
 
             MenuController.AddSubmenu(menu, playerMenu);
 
-            MenuItem sendMessage = new MenuItem("Send Private Message", "Sends a private message to this player. ~r~Note: staff may be able to see all PM's.");
-            MenuItem teleport = new MenuItem("Teleport To Player", "Teleport to this player.");
-            MenuItem teleportVeh = new MenuItem("Teleport Into Player Vehicle", "Teleport into the vehicle of the player.");
-            MenuItem summon = new MenuItem("Summon Player", "Teleport the player to you.");
-            MenuItem toggleGPS = new MenuItem("Toggle GPS", "Enables or disables the GPS route on your radar to this player.");
-            MenuItem spectate = new MenuItem("Spectate Player", "Spectate this player. Click this button again to stop spectating.");
-            MenuItem printIdentifiers = new MenuItem("Print Identifiers", "This will print the player's identifiers to the client console (F8). And also save it to the CitizenFX.log file.");
-            MenuItem kill = new MenuItem("~r~Kill Player", "Kill this player, note they will receive a notification saying that you killed them. It will also be logged in the Staff Actions log.");
-            MenuItem kick = new MenuItem("~r~Kick Player", "Kick the player from the server.");
-            MenuItem ban = new MenuItem("~r~Ban Player Permanently", "Ban this player permanently from the server. Are you sure you want to do this? You can specify the ban reason after clicking this button.");
-            MenuItem tempban = new MenuItem("~r~Ban Player Temporarily", "Give this player a tempban of up to 30 days (max). You can specify duration and ban reason after clicking this button.");
+            MenuItem sendMessage = new MenuItem("Envoyer un message privé", "");
+            MenuItem teleport = new MenuItem("Téléportation au joueur", "");
+            MenuItem teleportVeh = new MenuItem("Téléportation au véhicule du joueur", "");
+            MenuItem summon = new MenuItem("Téléporte le joueur sur vous", "");
+            MenuItem toggleGPS = new MenuItem("Point GPS", "");
+            MenuItem spectate = new MenuItem("Mode Spectateur", "");
+            MenuItem printIdentifiers = new MenuItem("Affiche Identifiers", "");
+            //MenuItem freezePlayer = new MenuItem("Freeze le joueur", "");
+            MenuItem kill = new MenuItem("~r~Tue le joueur", "Kill this player, note they will receive a notification saying that you killed them. It will also be logged in the Staff Actions log.");
+            MenuItem kick = new MenuItem("~r~Kick le joueur ", "Kick the player from the server.");
+            MenuItem ban = new MenuItem("~r~Bannir le joueur permanent", "Ban this player permanently from the server. Are you sure you want to do this? You can specify the ban reason after clicking this button.");
+            MenuItem tempban = new MenuItem("~r~Bannir le joueur temporairement", "Give this player a tempban of up to 30 days (max). You can specify duration and ban reason after clicking this button.");
 
             // always allowed
             playerMenu.AddMenuItem(sendMessage);
@@ -106,9 +107,9 @@ namespace vMenuClient
                 // send message
                 if (item == sendMessage)
                 {
-                    if (MainMenu.MiscSettingsMenu != null && !MainMenu.MiscSettingsMenu.MiscDisablePrivateMessages)
-                    {
-                        string message = await GetUserInput($"Private Message To {currentPlayer.Name}", 200);
+                    //if (MainMenu.MiscSettingsMenu != null && !MainMenu.MiscSettingsMenu.MiscDisablePrivateMessages)
+                    //{
+                        string message = await GetUserInput($"Message privé à {currentPlayer.Name}", 200);
                         if (string.IsNullOrEmpty(message))
                         {
                             Notify.Error(CommonErrors.InvalidInput);
@@ -118,11 +119,11 @@ namespace vMenuClient
                             TriggerServerEvent("vMenu:SendMessageToPlayer", currentPlayer.ServerId, message);
                             PrivateMessage(currentPlayer.ServerId.ToString(), message, true);
                         }
-                    }
-                    else
-                    {
-                        Notify.Error("You can't send a private message if you have private messages disabled yourself. Enable them in the Misc Settings menu and try again.");
-                    }
+                    //}
+                    //else
+                    //{
+                    //    Notify.Error("You can't send a private message if you have private messages disabled yourself. Enable them in the Misc Settings menu and try again.");
+                    //}
 
 
 
@@ -215,7 +216,7 @@ namespace vMenuClient
                         {
                             ids += "~n~" + s;
                         }
-                        Notify.Custom($"~y~<C>{GetSafePlayerName(currentPlayer.Name)}</C>~g~'s Identifiers: {ids}", false);
+                        Notify.Custom($"~y~<C>{GetSafePlayerName(currentPlayer.Name)}</C>~g~ Identifiers: {ids}", false);
                         return data;
                     };
                     BaseScript.TriggerServerEvent("vMenu:GetPlayerIdentifiers", currentPlayer.ServerId, CallbackFunction);
@@ -256,8 +257,8 @@ namespace vMenuClient
                     if (MainMenu.PlayersList.ToList().Any(p => p.ServerId.ToString() == item.Label.Replace(" →→→", "").Replace("Server #", "")))
                     {
                         currentPlayer = MainMenu.PlayersList.ToList().Find(p => p.ServerId.ToString() == item.Label.Replace(" →→→", "").Replace("Server #", ""));
-                        playerMenu.MenuSubtitle = $"~s~Player: ~y~{GetSafePlayerName(currentPlayer.Name)}";
-                        playerMenu.CounterPreText = $"[Server ID: ~y~{currentPlayer.ServerId}~s~] ";
+                        playerMenu.MenuSubtitle = $"~s~Joueur: ~y~{GetSafePlayerName(currentPlayer.Name)}";
+                        playerMenu.CounterPreText = $"[ID: ~y~{currentPlayer.ServerId}~s~] ";
                     }
                     else
                     {
@@ -275,7 +276,7 @@ namespace vMenuClient
 
             foreach (Player p in MainMenu.PlayersList)
             {
-                MenuItem pItem = new MenuItem($"{GetSafePlayerName(p.Name)}", $"Click to view the options for this player. Server ID: {p.ServerId}. Local ID: {p.Handle}.")
+                MenuItem pItem = new MenuItem($"{GetSafePlayerName(p.Name)}", $"Affiche les options du joueur. ID: {p.ServerId}. Local ID: {p.Handle}.")
                 {
                     Label = $"Server #{p.ServerId} →→→"
                 };

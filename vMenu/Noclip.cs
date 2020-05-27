@@ -23,20 +23,20 @@ namespace vMenuClient
 
         private List<string> speeds = new List<string>()
         {
-            "Very Slow",
-            "Slow",
+            "Tortue",
+            "Lent",
             "Normal",
-            "Fast",
-            "Very Fast",
-            "Extremely Fast",
-            "Extremely Fast v2.0",
-            "Max Speed"
+            "Rapide",
+            "Très rapide",
+            "Beaucoup trop vite",
+            "Bugatti Veyron",
+            "VEGA MISSIL"
         };
 
         public NoClip()
         {
 #if DEBUG
-            RegisterCommand("noclip", new Action(() =>
+            RegisterCommand("noclipv2", new Action(() =>
             {
                 NoclipActive = !NoclipActive;
             }), true);
@@ -80,43 +80,43 @@ namespace vMenuClient
                     BeginScaleformMovieMethod(Scale, "SET_DATA_SLOT");
                     ScaleformMovieMethodAddParamInt(0);
                     PushScaleformMovieMethodParameterString("~INPUT_SPRINT~");
-                    PushScaleformMovieMethodParameterString($"Change Speed ({speeds[MovingSpeed]})");
+                    PushScaleformMovieMethodParameterString($"Changer de vitesse ({speeds[MovingSpeed]})");
                     EndScaleformMovieMethod();
 
                     BeginScaleformMovieMethod(Scale, "SET_DATA_SLOT");
                     ScaleformMovieMethodAddParamInt(1);
                     PushScaleformMovieMethodParameterString("~INPUT_MOVE_LR~");
-                    PushScaleformMovieMethodParameterString($"Turn Left/Right");
+                    PushScaleformMovieMethodParameterString($"Gauche / Droite");
                     EndScaleformMovieMethod();
 
                     BeginScaleformMovieMethod(Scale, "SET_DATA_SLOT");
                     ScaleformMovieMethodAddParamInt(2);
                     PushScaleformMovieMethodParameterString("~INPUT_MOVE_UD~");
-                    PushScaleformMovieMethodParameterString($"Move");
+                    PushScaleformMovieMethodParameterString($"Bouger");
                     EndScaleformMovieMethod();
 
                     BeginScaleformMovieMethod(Scale, "SET_DATA_SLOT");
                     ScaleformMovieMethodAddParamInt(3);
                     PushScaleformMovieMethodParameterString("~INPUT_MULTIPLAYER_INFO~");
-                    PushScaleformMovieMethodParameterString($"Down");
+                    PushScaleformMovieMethodParameterString($"Descendre");
                     EndScaleformMovieMethod();
 
                     BeginScaleformMovieMethod(Scale, "SET_DATA_SLOT");
                     ScaleformMovieMethodAddParamInt(4);
                     PushScaleformMovieMethodParameterString("~INPUT_COVER~");
-                    PushScaleformMovieMethodParameterString($"Up");
+                    PushScaleformMovieMethodParameterString($"Monter");
                     EndScaleformMovieMethod();
 
                     BeginScaleformMovieMethod(Scale, "SET_DATA_SLOT");
                     ScaleformMovieMethodAddParamInt(5);
                     PushScaleformMovieMethodParameterString("~INPUT_VEH_HEADLIGHT~");
-                    PushScaleformMovieMethodParameterString($"Cam Mode");
+                    PushScaleformMovieMethodParameterString($"Caméra mode");
                     EndScaleformMovieMethod();
 
                     BeginScaleformMovieMethod(Scale, "SET_DATA_SLOT");
                     ScaleformMovieMethodAddParamInt(6);
                     PushScaleformMovieMethodParameterString(GetControlInstructionalButton(0, (int)MainMenu.NoClipKey, 1));
-                    PushScaleformMovieMethodParameterString($"Toggle NoClip");
+                    PushScaleformMovieMethodParameterString($"Activer - Désactiver Noclip");
                     EndScaleformMovieMethod();
 
                     BeginScaleformMovieMethod(Scale, "DRAW_INSTRUCTIONAL_BUTTONS");

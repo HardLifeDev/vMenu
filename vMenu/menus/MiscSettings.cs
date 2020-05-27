@@ -43,7 +43,7 @@ namespace vMenuClient
         public bool RestorePlayerWeapons { get; private set; } = UserDefaults.MiscRestorePlayerWeapons;
         public bool DrawTimeOnScreen { get; internal set; } = UserDefaults.MiscShowTime;
         public bool MiscRightAlignMenu { get; private set; } = UserDefaults.MiscRightAlignMenu;
-        public bool MiscDisablePrivateMessages { get; private set; } = UserDefaults.MiscDisablePrivateMessages;
+        public bool MiscDisablePrivateMessages { get; private set; } = false;
         public bool MiscDisableControllerSupport { get; private set; } = UserDefaults.MiscDisableControllerSupport;
 
         internal bool TimecycleEnabled { get; private set; } = false;

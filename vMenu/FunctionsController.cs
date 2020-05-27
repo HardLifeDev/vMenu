@@ -37,8 +37,8 @@ namespace vMenuClient
         private string crossingName = "";
         private string suffix = "";
         private List<int> waypointPlayerIdsToRemove = new List<int>();
-        private int voiceTimer = 0;
-        private int voiceCycle = 1;
+        //private int voiceTimer = 0;
+        //private int voiceCycle = 1;
         private const float voiceIndicatorWidth = 0.02f;
         private const float voiceIndicatorHeight = 0.041f;
         private const float voiceIndicatorMutedWidth = voiceIndicatorWidth + 0.0021f;
@@ -82,7 +82,6 @@ namespace vMenuClient
             Tick += VehicleOptions;
             Tick += VehicleOptionsEveryFrame;
             Tick += MoreVehicleOptions;
-            Tick += VoiceChat;
             Tick += TimeOptions;
             Tick += WeatherOptions;
             Tick += WeaponOptions;
@@ -1298,90 +1297,90 @@ namespace vMenuClient
         /// Run all voice chat options tasks
         /// </summary>
         /// <returns></returns>
-        private async Task VoiceChat()
-        {
-            if (MainMenu.PermissionsSetupComplete && MainMenu.VoiceChatSettingsMenu != null && IsAllowed(Permission.VCMenu))
-            {
-                if (MainMenu.VoiceChatSettingsMenu.EnableVoicechat && IsAllowed(Permission.VCEnable))
-                {
-                    NetworkSetVoiceActive(true);
-                    NetworkSetTalkerProximity(MainMenu.VoiceChatSettingsMenu.currentProximity);
-                    int channel = MainMenu.VoiceChatSettingsMenu.channels.IndexOf(MainMenu.VoiceChatSettingsMenu.currentChannel);
-                    if (channel < 1)
-                    {
-                        NetworkClearVoiceChannel();
-                    }
-                    else
-                    {
-                        NetworkSetVoiceChannel(channel);
-                    }
-                    if (MainMenu.VoiceChatSettingsMenu.ShowCurrentSpeaker && IsAllowed(Permission.VCShowSpeaker))
-                    {
-                        PlayerList pl = Players;
-                        var i = 1;
-                        var currentlyTalking = false;
-                        foreach (Player p in pl)
-                        {
-                            if (NetworkIsPlayerTalking(p.Handle))
-                            {
-                                if (!currentlyTalking)
-                                {
-                                    DrawTextOnScreen("~s~Currently Talking", 0.5f, 0.00f, 0.5f, Alignment.Center, 6);
-                                    currentlyTalking = true;
-                                }
-                                DrawTextOnScreen($"~b~{p.Name}", 0.5f, 0.00f + (i * 0.03f), 0.5f, Alignment.Center, 6);
-                                i++;
-                            }
-                        }
-                    }
-                    if (MainMenu.VoiceChatSettingsMenu.ShowVoiceStatus)
-                    {
+        //private async Task VoiceChat()
+        //{
+        //    if (MainMenu.PermissionsSetupComplete && MainMenu.VoiceChatSettingsMenu != null && IsAllowed(Permission.VCMenu))
+        //    {
+        //        if (MainMenu.VoiceChatSettingsMenu.EnableVoicechat && IsAllowed(Permission.VCEnable))
+        //        {
+        //            NetworkSetVoiceActive(true);
+        //            NetworkSetTalkerProximity(MainMenu.VoiceChatSettingsMenu.currentProximity);
+        //            int channel = MainMenu.VoiceChatSettingsMenu.channels.IndexOf(MainMenu.VoiceChatSettingsMenu.currentChannel);
+        //            if (channel < 1)
+        //            {
+        //                NetworkClearVoiceChannel();
+        //            }
+        //            else
+        //            {
+        //                NetworkSetVoiceChannel(channel);
+        //            }
+        //            if (MainMenu.VoiceChatSettingsMenu.ShowCurrentSpeaker && IsAllowed(Permission.VCShowSpeaker))
+        //            {
+        //                PlayerList pl = Players;
+        //                var i = 1;
+        //                var currentlyTalking = false;
+        //                foreach (Player p in pl)
+        //                {
+        //                    if (NetworkIsPlayerTalking(p.Handle))
+        //                    {
+        //                        if (!currentlyTalking)
+        //                        {
+        //                            DrawTextOnScreen("~s~Currently Talking", 0.5f, 0.00f, 0.5f, Alignment.Center, 6);
+        //                            currentlyTalking = true;
+        //                        }
+        //                        DrawTextOnScreen($"~b~{p.Name}", 0.5f, 0.00f + (i * 0.03f), 0.5f, Alignment.Center, 6);
+        //                        i++;
+        //                    }
+        //                }
+        //            }
+        //            if (MainMenu.VoiceChatSettingsMenu.ShowVoiceStatus)
+        //            {
 
-                        if (GetGameTimer() - voiceTimer > 150)
-                        {
-                            voiceTimer = GetGameTimer();
-                            voiceCycle++;
-                            if (voiceCycle > 3)
-                            {
-                                voiceCycle = 1;
-                            }
-                        }
-                        if (!HasStreamedTextureDictLoaded("mpleaderboard"))
-                        {
-                            RequestStreamedTextureDict("mpleaderboard", false);
-                            while (!HasStreamedTextureDictLoaded("mpleaderboard"))
-                            {
-                                await Delay(0);
-                            }
-                        }
-                        if (NetworkIsPlayerTalking(Game.Player.Handle))
-                        {
-                            DrawSprite("mpleaderboard", $"leaderboard_audio_{voiceCycle}", 0.008f, 0.985f, voiceIndicatorWidth, voiceIndicatorHeight, 0f, 255, 55, 0, 255);
-                        }
-                        else
-                        {
-                            DrawSprite("mpleaderboard", "leaderboard_audio_mute", 0.008f, 0.985f, voiceIndicatorMutedWidth, voiceIndicatorHeight, 0f, 255, 55, 0, 255);
-                        }
-                    }
-                    else
-                    {
-                        if (HasStreamedTextureDictLoaded("mpleaderboard"))
-                        {
-                            SetStreamedTextureDictAsNoLongerNeeded("mpleaderboard");
-                        }
-                    }
-                }
-                else
-                {
-                    NetworkSetVoiceActive(false);
-                    NetworkClearVoiceChannel();
-                }
-            }
-            else
-            {
-                await Delay(0);
-            }
-        }
+        //                if (GetGameTimer() - voiceTimer > 150)
+        //                {
+        //                    voiceTimer = GetGameTimer();
+        //                    voiceCycle++;
+        //                    if (voiceCycle > 3)
+        //                    {
+        //                        voiceCycle = 1;
+        //                    }
+        //                }
+        //                if (!HasStreamedTextureDictLoaded("mpleaderboard"))
+        //                {
+        //                    RequestStreamedTextureDict("mpleaderboard", false);
+        //                    while (!HasStreamedTextureDictLoaded("mpleaderboard"))
+        //                    {
+        //                        await Delay(0);
+        //                    }
+        //                }
+        //                if (NetworkIsPlayerTalking(Game.Player.Handle))
+        //                {
+        //                    DrawSprite("mpleaderboard", $"leaderboard_audio_{voiceCycle}", 0.008f, 0.985f, voiceIndicatorWidth, voiceIndicatorHeight, 0f, 255, 55, 0, 255);
+        //                }
+        //                else
+        //                {
+        //                    DrawSprite("mpleaderboard", "leaderboard_audio_mute", 0.008f, 0.985f, voiceIndicatorMutedWidth, voiceIndicatorHeight, 0f, 255, 55, 0, 255);
+        //                }
+        //            }
+        //            else
+        //            {
+        //                if (HasStreamedTextureDictLoaded("mpleaderboard"))
+        //                {
+        //                    SetStreamedTextureDictAsNoLongerNeeded("mpleaderboard");
+        //                }
+        //            }
+        //        }
+        //        else
+        //        {
+        //            NetworkSetVoiceActive(false);
+        //            NetworkClearVoiceChannel();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        await Delay(0);
+        //    }
+        //}
         #endregion
 
         #region Update Time Options Menu (current time display)

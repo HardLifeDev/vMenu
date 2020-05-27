@@ -3050,14 +3050,14 @@ namespace vMenuClient
         public static void PrivateMessage(string source, string message) => PrivateMessage(source, message, false);
         public static async void PrivateMessage(string source, string message, bool sent)
         {
-            if (MainMenu.MiscSettingsMenu == null || MainMenu.MiscSettingsMenu.MiscDisablePrivateMessages)
-            {
-                if (!(sent && source == Game.Player.ServerId.ToString()))
-                {
-                    TriggerServerEvent("vMenu:PmsDisabled", source);
-                }
-                return;
-            }
+            //if (MainMenu.MiscSettingsMenu == null)
+            //{
+            //    //if (!(sent && source == Game.Player.ServerId.ToString()))
+            //    //{
+            //    //    TriggerServerEvent("vMenu:PmsDisabled", source);
+            //    //}
+            //    return;
+            //}
 
             Player sourcePlayer = new Player(GetPlayerFromServerId(int.Parse(source)));
             if (sourcePlayer != null)
@@ -3080,22 +3080,22 @@ namespace vMenuClient
                     string headshotTxd = GetPedheadshotTxdString(headshotHandle);
                     if (sent)
                     {
-                        Notify.CustomImage(headshotTxd, headshotTxd, message, $"<C>{GetSafePlayerName(sourcePlayer.Name)}</C>", "Message Sent", true, 1);
+                        Notify.CustomImage(headshotTxd, headshotTxd, message, $"<C>{GetSafePlayerName(sourcePlayer.Name)}</C>", "Message envoyé", true, 1);
                     }
                     else
                     {
-                        Notify.CustomImage(headshotTxd, headshotTxd, message, $"<C>{GetSafePlayerName(sourcePlayer.Name)}</C>", "Message Received", true, 1);
+                        Notify.CustomImage(headshotTxd, headshotTxd, message, $"<C>{GetSafePlayerName(sourcePlayer.Name)}</C>", "Message reçu", true, 1);
                     }
                 }
                 else
                 {
                     if (sent)
                     {
-                        Notify.Custom($"PM From: <C>{GetSafePlayerName(sourcePlayer.Name)}</C>. Message: {message}");
+                        Notify.Custom($"De : <C>{GetSafePlayerName(sourcePlayer.Name)}</C>. Message: {message}");
                     }
                     else
                     {
-                        Notify.Custom($"PM To: <C>{GetSafePlayerName(sourcePlayer.Name)}</C>. Message: {message}");
+                        Notify.Custom($"A : <C>{GetSafePlayerName(sourcePlayer.Name)}</C>. Message: {message}");
                     }
                 }
                 UnregisterPedheadshot(headshotHandle);
